@@ -113,6 +113,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   }
 }
 
+
 void ParticleFilter::Update(const vector<float>& ranges,
                             float range_min,
                             float range_max,
@@ -175,7 +176,49 @@ void ParticleFilter::Initialize(const string& map_file,
   // The "set_pose" button on the GUI was clicked, or an initialization message
   // was received from the log. Initialize the particles accordingly, e.g. with
   // some distribution around the provided location and angle.
-  map_.Load(map_file);
+  map_.Load(map_file); // loads map_file so map_.lines has all lines tracing the map
+
+  num_particles = 100; // change or set global
+
+  // uniformly randomly sample the available areas of the map;
+  
+  float maxX, maxY;
+  float p0x, p0y, p1x, p1y, xrand, yrand;
+  Vector2f ploc;
+  float pangle;
+  double pweight;
+  vector<Particle> all_particles(num_particles);
+
+  // find max values x and y could ever take
+  for (const line2f& l : map_.lines) {
+    p0x = l.p0(0);
+    p1x = l.p1(0);
+    p0y = l.p0(1);
+    p1y = l.p1(1); 
+    maxX = std::max(p0x,p1x);
+    maxY = std::max(p0y,p1y);
+  }
+
+
+  for (int i = 0; i < num_particles; i++){
+    
+    xrand = Random::UniformRandom(0,maxX);
+    yrand = Random::UniformRandom(0,maxY);
+
+    ploc = Vector2f(xrand, yrand);
+    pangle = Random::UniformRandom(0, 2*M_PI);
+    pweight = 1f / num_particles;
+
+    all_particles[i] = Particle(ploc, pangle, pweight);
+  }
+
+
+  
+  printf("%d particles generated.", num_particles);
+  
+    
+
+
 }
 
 void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr, 

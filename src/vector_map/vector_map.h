@@ -33,6 +33,7 @@ namespace vector_map {
 // Checks if any part of trim_line is occluded by test_line when seen from
 // loc, and if so, trim_line is trimmed accordingly, adding sub-lines to
 // scene_lines if necessary.
+
 void TrimOcclusion(const Eigen::Vector2f& loc,
                   const geometry::line2f& line1,
                   geometry::line2f* line2_ptr,

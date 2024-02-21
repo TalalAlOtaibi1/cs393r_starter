@@ -398,7 +398,7 @@ void VectorMap::GetPredictedScan(const Vector2f& loc,
                                  float angle_min,
                                  float angle_max,
                                  int num_rays,
-                                 vector<float>* scan_ptr) {
+                                 vector<float>* scan_ptr) {  // USE FOR WEIGHING PARTICLES
   static CumulativeFunctionTimer function_timer_(__FUNCTION__);
   CumulativeFunctionTimer::Invocation invoke(&function_timer_);
   vector<float>& scan = *scan_ptr;

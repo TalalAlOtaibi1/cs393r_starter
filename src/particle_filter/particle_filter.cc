@@ -178,10 +178,11 @@ void ParticleFilter::Initialize(const string& map_file,
   // some distribution around the provided location and angle.
   map_.Load(map_file); // loads map_file so map_.lines has all lines tracing the map
 
-  num_particles = 100; // change or set global
+  // int num_particles = 100; // change or set global
 
   // uniformly randomly sample the available areas of the map;
   
+  /*
   float maxX, maxY;
   float p0x, p0y, p1x, p1y, xrand, yrand;
   Vector2f ploc;
@@ -215,6 +216,7 @@ void ParticleFilter::Initialize(const string& map_file,
 
   
   printf("%d particles generated.", num_particles);
+  */
   
     
 
